@@ -24,6 +24,8 @@
 
 // ----------------------------------------------------------------------------
 
+uint8_t layers_head = 0
+
 static bool _main_kb_is_pressed[KB_ROWS][KB_COLUMNS];
 bool (*main_kb_is_pressed)[KB_ROWS][KB_COLUMNS] = &_main_kb_is_pressed;
 
@@ -112,9 +114,10 @@ int main(void) {
 		usb_keyboard_send();
 		_delay_ms(MAKEFILE_DEBOUNCE_TIME);
 
+
 		// update LEDs
-		if (keyboard_leds & (1<<0)) { kb_led_num_on(); }
-		else { kb_led_num_off(); }
+		/*if (keyboard_leds & (1<<0)) { kb_led_num_on(); }
+		  else { kb_led_num_off(); }*/
 		if (keyboard_leds & (1<<1)) { kb_led_caps_on(); }
 		else { kb_led_caps_off(); }
 		if (keyboard_leds & (1<<2)) { kb_led_scroll_on(); }
@@ -123,6 +126,31 @@ int main(void) {
 		else { kb_led_compose_off(); }
 		if (keyboard_leds & (1<<4)) { kb_led_kana_on(); }
 		else { kb_led_kana_off(); }
+		//num leftmost
+		//caps middle
+		//scroll right
+
+		
+		if (layers_head!=0) {
+
+		  kb_led_num_off();
+		  kb_led_caps_off();
+		  kb_led_scroll_off();
+
+		  if (layers_head&(1<<0))
+		    kb_led_scroll_on();
+		  if (layers_head&(1<<1))
+		    kb_led_caps_on();
+		  if (layers_head&(1<<2))
+		    kb_led_num_on();
+		  
+		}
+		else {
+		  kb_led_num_off();
+		  kb_led_caps_off();
+		  kb_led_scroll_off();
+		}
+
 	}
 
 	return 0;
