@@ -1,0 +1,10 @@
+.main.c.swp
+firmware.elf
+firmware.hex
+firmware.map
+keyboard/ergodox/layout/default-kinesis-mod.o
+lib/key-functions/private.o.dep
+lib/key-functions/public/basic.o.dep
+lib/key-functions/public/special.o.dep
+main.o
+main.o.dep
